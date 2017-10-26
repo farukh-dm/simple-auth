@@ -94,67 +94,6 @@ public class HelloWorldController {
 		
 	}
 	
-	// Some other demonstration.
-	
-	@RequestMapping(method = RequestMethod.GET, value="hi")
-	public String sayHi(ModelMap model) {
-		model.addAttribute("greeting", "HI");
-		return "hi";
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="hey")
-	public ModelAndView sayHey(ModelAndView model) {
-		model.addObject("greeting", "Hey");
-		model.setViewName("hi");
-		return model;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="bye")
-	public ModelAndView sayBye(ModelAndView model) {
-		model.addObject("greeting", "bye");
-		model.setViewName("exitPage");
-		return model;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="welcome")
-	public ModelAndView sayWelcome(ModelAndView model) {
-		model.addObject("greeting", "Welcome");
-		model.setViewName("welcomePage");
-		return model;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="employee/{code}/{name}")
-	public ModelAndView getEmployee(
-		@PathVariable("code") String code, 
-		@PathVariable("name") String name) {
-		
-		ModelAndView model = new ModelAndView();
-		Employee emp = new Employee(code, name);
-		model.addObject(emp);
-		model.setViewName("jsonView");
-		return model;
-		
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="/employee", 
-		produces={"application/xml", "application/json"})
-    @ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Employee getEmp() {
-		
-		Employee emp = new Employee("P2586", "Farukh");
-		return emp;
-		
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="/person", 
-		produces={"application/xml", "application/json"})
-	public ResponseEntity<Person>getPerson() {
-		
-		Person p = new Person("P2586", "Farukh");
-		return new ResponseEntity<Person>(p, HttpStatus.OK);
-		
-	}
-	
 	@ExceptionHandler(value=Exception.class)
 	public @ResponseBody ModelAndView handleException(Exception exception, HttpSession session) {
 		ModelAndView model = new ModelAndView("error");
