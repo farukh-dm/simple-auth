@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +25,8 @@ import com.demo.spring.login.service.LoginService;
 @Controller
 public class LoginController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+	
 	@Autowired
 	LoginService loginServiceImpl;
 	
@@ -30,12 +34,17 @@ public class LoginController {
 	public ModelAndView login(HttpServletRequest request,
 		HttpServletResponse response, HttpSession session) {
 		
+		LOGGER.debug("login: start");
+		
 		HttpSession currentSsession = request.getSession(false);
 		if(null != currentSsession) {
 			currentSsession.invalidate();
 			currentSsession = request.getSession(true);
 		}
 		ModelAndView mv = new ModelAndView("login/_form");
+		
+		LOGGER.debug("login: end");
+		
 		return mv;
 		
 	}
@@ -45,6 +54,8 @@ public class LoginController {
 		@ModelAttribute("loginDto") LoginDto loginDto,
 		HttpServletRequest request, HttpServletResponse response, 
 		HttpSession session) throws IOException {
+		
+		LOGGER.debug("authenticate: start");
 		
 		CurrentUser currentUser = loginServiceImpl.authenticate(loginDto);
 		String redirectUrl = null;
@@ -62,6 +73,8 @@ public class LoginController {
 		} else {
 			redirectUrl = request.getContextPath() + "/login";
 		}
+		
+		LOGGER.debug("authenticate: end");
 		
 		response.sendRedirect(redirectUrl);
 		

@@ -21,7 +21,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
     
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-	  <file>MyLog.log</file>
+	  <file>D:\Workspace\SpringDemo\simple-auth\MyLog.log</file>
 	  <layout class="ch.qos.logback.classic.PatternLayout">
 	    <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
 	  </layout>
@@ -30,10 +30,10 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
 	<!-- TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF -->
 	<!--<logger name="org.hibernate" level="debug"/> -->
     <!-- Uncomment and add your logger here: -->
-    <logger name="com.demo.spring.login.controller.LoginController" level="debug"/>
+    <logger name="com.demo.spring.login" level="debug"/>
          
     <root level="error">
         <appender-ref ref="console"/>
-        <appender-ref ref="file"/>
+        <!-- <appender-ref ref="file"/> -->
     </root>
 </configuration>
